@@ -114,14 +114,26 @@ mediaSize()
 
 media768min.addListener(mediaSize)
 
+
+
 burgerMenu.addEventListener('click', () => {
+    navMenu.classList.toggle('active')
     navMenu.style.left = "0"
 })
-closeBugerMenu.addEventListener('click', () => {
-    navMenu.style.left = "-100%"
-})
 
-navMenu.addEventListener('click', (event) => {
-    if (event.target.className !== 'navList')
+function navMenu_Mobile_CloseOpen(event) {
+    if (navMenu.classList.contains('active') && event.target.className.baseVal !== 'burgerMenu') {
         navMenu.style.left = "-100%"
-})
+        navMenu.classList.remove('active')
+    }
+}
+
+(function () {
+    if (navMenu.classList.contains('active')) {
+        document.removeEventListener('click', navMenu_Mobile_CloseOpen)
+    }
+    else {
+        document.addEventListener('click', navMenu_Mobile_CloseOpen)
+    }
+    
+}());
